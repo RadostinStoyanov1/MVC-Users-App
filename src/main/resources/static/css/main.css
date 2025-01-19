@@ -16,7 +16,7 @@ body {
  }
 
 .navbar .logo {
-     max-height: 50px;
+     max-height: 40px;
      padding-right: 100px;
 }
 
@@ -70,11 +70,10 @@ form.main-form {
      position: relative;
      border-radius: 12px;
      margin-top: 8em;
-     /*color: #5a6268;*/
      color: #b5d8f1;
      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
      padding: 1em;
-     background-color: rgb(84 91 98 / 10%);
+     background-color: rgb(84 91 98 / 70%);
      max-width: 1140px;
      text-align: center;
      margin-right: auto;
@@ -82,6 +81,10 @@ form.main-form {
      box-shadow: 0 4px 16px black;
      z-index: 1;
 }
+
+/*div.welcome p.h4 {
+     color: #d39e00;
+}*/
 
 .welcome:hover {
      box-shadow: 0 1px 5px black;
