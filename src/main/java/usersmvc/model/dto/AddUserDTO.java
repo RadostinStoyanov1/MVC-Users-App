@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import usersmvc.validation.annotations.UniqueEmail;
+import usersmvc.validation.annotations.UniquePhone;
 
 import java.time.LocalDate;
 
@@ -20,9 +22,11 @@ public class AddUserDTO {
 
     @Pattern(regexp = "[0-9]+", message = "Phone number must contain 10 digits only")
     @Size(min = 10, max = 10)
+    @UniquePhone
     private String phoneNumber;
 
     @Email(regexp = ".*@.*")
+    @UniqueEmail
     private String email;
 
     public String getFirstName() {
