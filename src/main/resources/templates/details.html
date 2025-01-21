@@ -17,45 +17,41 @@
 
 <div class="container-fluid">
     <h2 class="text-center text-white mt-5">Details</h2>
-    <div th:object="${offerDetails}" class="offers row mx-auto d-flex flex-row justify-content-center">
+    <div th:object="${userDetails}" class="offers row mx-auto d-flex flex-row justify-content-center">
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0" >
 
             <div class="card-body pb-1">
                 <h5 class="card-title">
-                    <th:block th:text="${offerDetails.getName()}"></th:block></h5>
+                    <span><th:block th:text="${userDetails.firstName}"></th:block></span>
+                    <span><th:block th:text="${userDetails.lastName}"></th:block></span>
+                </h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span>• Product type: <th:block th:text="${offerDetails.getProductType()}"></th:block></span></div>
-                    <div class="card-text"><span>• Description: <th:block th:text="${offerDetails.getDescription()}"></th:block></span></div>
-                    <div class="card-text"><span>• Author: <th:block th:text="${offerDetails.getAuthorFullName()}"></th:block></span></div>
+                    <div class="card-text"><span>• First name: <th:block th:text="${userDetails.firstName}"></th:block></span></div>
+                    <div class="card-text"><span>• Last name: <th:block th:text="${userDetails.lastName}"></th:block></span></div>
+                    <div class="card-text"><span>• Birth date: <th:block th:text="${userDetails.birthDate}"></th:block></span></div>
+                    <div class="card-text"><span>• Phone number: <th:block th:text="${userDetails.phoneNumber}"></th:block></span></div>
+                    <div class="card-text"><span>• email: <th:block th:text="${userDetails.email}"></th:block></span></div>
                 </li>
             </ul>
             <div class="card-body">
-                <form class="d-inline-block" th:if="${canDelete}"
+                <form class="d-inline-block"
                       th:method="DELETE"
-                      th:action="@{/offers/{id}(id=${offerDetails.getId()})}">
-                    <button class="btn btn-danger" type="submit" th:text="'Delete'"></button>
+                      th:action="@{/users/{id}(id=${userDetails.getId()})}">
+                    <button class="btn btn-danger" type="submit" th:text="'Delete User'"></button>
                 </form>
                 <!--<a th:if="${canDelete}" class="card-link" href="/">Delete</a>-->
-                <span th:if="${canUpload}" class="col-auto ml-auto"> Upload picture:</span>
-                <form th:if="${canUpload}" class="d-inline-block" th:action="@{/offers/upload-picture}" method="POST" th:object="${uploadPictureDTO}" enctype="multipart/form-data">
-                    <input type="hidden" name="id" id="offerId" th:value="${offerDetails.id}">
-                    <div class="image-upload d-inline-block">
-                        <label for="picture">
-                            <img src="/images/add-img.png" alt=""/>
-                        </label>
-                        <input style="display: none" id="picture" type="file" name="picture"/>
-                    </div>
-
-                    <div class="form-group mt-2 d-inline-block">
-                        <button class="btn-primary rounded">Upload Picture</button>
-                    </div>
+                <span class="col-auto ml-auto"> Update user details:</span>
+                <form class="d-inline-block"
+                      th:method="GET"
+                      th:action="@{/users/update/{id}(id=${userDetails.getId()})}">
+                    <button class="btn btn-warning" type="submit" th:text="'Update user'"></button>
                 </form>
             </div>
         </div>
-        <div th:each="pictureUrl :${offerDetails.getPictures()}" class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
-            <img th:src="${pictureUrl}" class="card-img-top"  alt="image">
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+            <img src="/images/StockCake-Futuristic%20interface%20interaction_1737284223.jpg" class="card-img-top"  alt="image">
         </div>
     </div>
 </div>

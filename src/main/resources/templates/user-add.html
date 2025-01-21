@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users App</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar::navbar(activeLink=${'add-user'})}"></div>
+
+<div class="container">
+    <h2 class="text-center text-white">Add User</h2>
+    <form th:action="@{/users/add}"
+          th:method="POST"
+          th:object="${addUserDTO}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="firstName" class="text-white font-weight-bold">First name</label>
+                <input id="firstName" type="text" required minlength="2" maxlength="30" class="form-control"
+                       placeholder="First name"
+                       th:field="*{firstName}"
+                       th:errorclass="is-invalid"
+                />
+                <small th:errors="*{firstName}" class="invalid-feedback errors alert alert-danger" >User's name should not be empty</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="lastName" class="text-white font-weight-bold">Last name</label>
+                <input id="lastName" type="text" required minlength="2" maxlength="30" class="form-control"
+                       placeholder="Last name"
+                       th:field="*{lastName}"
+                       th:errorclass="is-invalid"
+                />
+                <small th:errors="*{lastName}" class="invalid-feedback errors alert alert-danger" >User's name should not be empty</small>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="phoneNumber" class="text-white font-weight-bold">Phone number (must be digits only)</label>
+                <input id="phoneNumber" type="text" required minlength="10" maxlength="10" class="form-control" pattern="[0-9]{10}"
+                       placeholder="Format: 1234567890"
+                       th:field="*{phoneNumber}"
+                       th:errorclass="'is-invalid alert-danger'"
+                />
+                <small th:errors="*{phoneNumber}" class="invalid-feedback text-danger" >Phone number is already occupied</small>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="email" class="text-white font-weight-bold">Email</label>
+                <input id="email" type="email" required class="form-control"
+                       placeholder="Email"
+                       th:field="*{email}"
+                       th:errorclass="'is-invalid alert-danger'"
+                />
+                <small th:errors="*{email}" class="invalid-feedback text-danger" >Email is already occupied</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="birthDate" class="text-white font-weight-bold">Birth date</label>
+            <input id="birthDate" type="date" class="form-control"
+                   th:field="*{birthDate}"
+            />
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button class="btn btn-info btn-block btn-lg" type="submit">Create User</button>
+        </div>
+
+    </form>
+</div>
+
+<div>
+    <footer> </footer>
+</div>
+
+</body>
+</html>

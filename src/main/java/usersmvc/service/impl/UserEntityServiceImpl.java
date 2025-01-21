@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import usersmvc.config.UsersRestApiConfig;
+import usersmvc.model.dto.AddUserDTO;
 import usersmvc.model.dto.BooleanResultDTO;
 import usersmvc.model.dto.UserDTO;
 import usersmvc.model.dto.UserSummaryDTO;
@@ -81,5 +82,24 @@ public class UserEntityServiceImpl implements UserEntityService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>(){});
+    }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        return usersRestClient
+                .get()
+                .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(UserDTO.class);
+    }
+
+    @Override
+    public void register(AddUserDTO addUserDTO) {
+        usersRestClient
+                .post()
+                .uri(usersRestApiConfig.getBaseUrl())
+                .body(addUserDTO)
+                .retrieve();
     }
 }
