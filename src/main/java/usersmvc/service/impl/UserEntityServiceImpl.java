@@ -53,11 +53,21 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     @Override
-    public List<UserSummaryDTO> getALlUsersSummary() {
+    public List<UserSummaryDTO> getAllUsersSummary() {
         LOGGER.info("Getting all users...");
         String emptyPattern = "";
 
         return getAllUsersAsUserDTO(emptyPattern)
+                .stream()
+                .map(userDTO -> modelMapper.map(userDTO, UserSummaryDTO.class))
+                .toList();
+    }
+
+    @Override
+    public List<UserSummaryDTO> getAllSearchedUsersSummary(String pattern) {
+        LOGGER.info("Getting all users...");
+
+        return getAllUsersAsUserDTO(pattern)
                 .stream()
                 .map(userDTO -> modelMapper.map(userDTO, UserSummaryDTO.class))
                 .toList();

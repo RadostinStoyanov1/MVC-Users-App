@@ -23,10 +23,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto col-12 justify-content-between">
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/users/add" th:classappend="${activeLink == 'add-offer'}? 'active'">Add User</a>
+                    <a class="nav-link" href="/users/add" th:classappend="${activeLink == 'add-user'}? 'active'">Add User</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/users/all" th:classappend="${activeLink == 'all-offers'}? 'active'">All Users</a>
+                    <a class="nav-link" href="/users/all" th:classappend="${activeLink == 'all-users'}? 'active'">All Users</a>
                 </li>
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a class="nav-link" href="/masters/login" th:classappend="${activeLink == 'login'}? 'active'">Login</a>

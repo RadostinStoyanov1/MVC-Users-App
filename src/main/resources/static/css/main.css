@@ -102,3 +102,7 @@ form.main-form {
      grid-row: auto;
 }
 
+#searchPatternForm {
+     max-width: 450px;
+}
+
