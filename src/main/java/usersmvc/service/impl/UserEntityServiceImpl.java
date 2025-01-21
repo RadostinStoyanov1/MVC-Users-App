@@ -100,6 +100,7 @@ public class UserEntityServiceImpl implements UserEntityService {
                 .post()
                 .uri(usersRestApiConfig.getBaseUrl())
                 .body(addUserDTO)
-                .retrieve();
+                .retrieve()
+                .body(UserDTO.class);
     }
 }

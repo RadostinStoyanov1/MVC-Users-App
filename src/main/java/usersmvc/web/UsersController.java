@@ -62,12 +62,12 @@ public class UsersController {
             redirectAttributes.addFlashAttribute("addUserDTO", addUserDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addUserDTO", bindingResult);
 
-            return "redirect:user-add";
+            return "redirect:/users/add";
         }
 
         userEntityService.register(addUserDTO);
 
-        return "redirect:/users/all";
+        return "redirect:/";
 
     }
 }
