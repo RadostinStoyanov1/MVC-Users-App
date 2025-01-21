@@ -19,22 +19,22 @@ public class SecurityConfig {
                         authorizeRequests ->
                                 authorizeRequests
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                        .requestMatchers("/", "/users/login", "/error", "/users/login-error").permitAll()
+                                        .requestMatchers("/", "/masters/login", "/error", "/masters/login-error").permitAll()
                                         .anyRequest()
                                         .authenticated()
                 )
                 .formLogin(formLogin ->
                         formLogin
-                                .loginPage("/users/login")
+                                .loginPage("/masters/login")
                                 .usernameParameter("email")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/", true)
-                                .failureUrl("/users/login-error")
+                                .failureUrl("/masters/login-error")
                 )
                 .logout(
                         logout ->
                                 logout
-                                        .logoutUrl("/users/logout")
+                                        .logoutUrl("/masters/logout")
                                         .logoutSuccessUrl("/")
                                         .invalidateHttpSession(true)
                 )

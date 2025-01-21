@@ -17,24 +17,24 @@
 
 
     <div class="container-fluid">
-        <h2 class="text-center text-white mt-5">All Offers</h2>
+        <h2 class="text-center text-white mt-5">All Users</h2>
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
-            <div th:each="offer :${allOffers}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+            <div th:each="user :${allUsers}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
                 <div class="card-img-top-wrapper">
-                    <img class="card-img-top" th:src="${offer.getPictureUrl()}" alt="text">
+                    <img class="card-img-top" src="/images/StockCake-Futuristic%20interface%20interaction_1737284223.jpg" alt="text">
                 </div>
                 <div class="card-body pb-1">
                     <h5 class="card-title">
-                        <th:block th:text="${offer.getName()}"></th:block></h5>
+                        <th:block th:text="${user.getFirstName()}"></th:block></h5>
                 </div>
                 <ul class="offer-details list-group list-group-flush">
                     <li class="list-group-item">
-                        <div class="card-text"><span>• ProductType: <th:block th:text="${offer.getProductType()}"></th:block></span></div>
-                        <div class="card-text"><span>• Author: <th:block th:text="${offer.getAuthorName()}"></th:block></span></div>
+                        <div class="card-text"><span>• Last name: <th:block th:text="${user.getLastName()}"></th:block></span></div>
+                        <div class="card-text"><span>• Birth date: <th:block th:text="${user.getBirthDate()}"></th:block></span></div>
                     </li>
                 </ul>
                 <div class="card-body">
-                    <a class="card-link" th:href="@{/offers/{id}(id=${offer.id})}">Details</a>
+                    <a class="card-link" th:href="@{/users/{id}(id=${user.id})}">Details</a>
                 </div>
             </div>
         </div>

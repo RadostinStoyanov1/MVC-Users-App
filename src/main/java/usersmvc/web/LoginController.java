@@ -8,7 +8,7 @@ import usersmvc.model.dto.MasterUserLoginDTO;
 @Controller
 public class LoginController {
 
-    @GetMapping("/users/login")
+    @GetMapping("/masters/login")
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView("auth-login");
 
@@ -16,7 +16,7 @@ public class LoginController {
         return modelAndView;
     }
 
-    @GetMapping("users/login-error")
+    @GetMapping("masters/login-error")
     public ModelAndView viewLoginError() {
         ModelAndView modelAndView = new ModelAndView("auth-login");
 

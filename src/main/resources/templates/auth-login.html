@@ -15,7 +15,7 @@
 
 <div class="container">
     <h2 class="text-center text-white">Login</h2>
-    <form th:action="@{/users/login}"
+    <form th:action="@{/masters/login}"
           th:method="POST"
           th:object="${loginData}"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
@@ -35,7 +35,7 @@
 
         </div>
 
-        <div class="bg-danger" th:if="${showErrorMessage}" th:text="'Invalid username or password'"></div>
+        <div class="bg-danger" th:if="${showErrorMessage}" th:text="'Invalid email or password'"></div>
 
         <div class="d-flex justify-content-center mt-4">
             <button class="btn btn-info btn-block btn-lg" type="submit">Login</button>
