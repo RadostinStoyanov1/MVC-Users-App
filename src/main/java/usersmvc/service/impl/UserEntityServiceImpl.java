@@ -4,12 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import usersmvc.config.UsersRestApiConfig;
 import usersmvc.model.dto.*;
 import usersmvc.service.UserEntityService;
+import usersmvc.service.exception.ExistingEmailOrPhoneException;
 
 import java.util.List;
 
@@ -109,6 +111,11 @@ public class UserEntityServiceImpl implements UserEntityService {
                 .uri(usersRestApiConfig.getBaseUrl())
                 .body(updateUserDTO)
                 .retrieve()
+                .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(405)),
+                        (req, resp) -> {
+                            throw new ExistingEmailOrPhoneException("User with entered email or phone already exists");
+                        })
+
                 .body(UserDTO.class);
     }
 
