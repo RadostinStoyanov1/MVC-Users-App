@@ -30,24 +30,25 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     @Override
     public boolean isPhoneNumberUnique(String phone) {
-        BooleanResultDTO booleanResultDTO = usersRestClient
+        StringResultDTO stringResultDTO = usersRestClient
                 .get()
                 .uri(usersRestApiConfig.getBaseUrl() + "/by-phone?pattern={phone}", phone)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(BooleanResultDTO.class);
-        return UNIQUE.equals(booleanResultDTO.getResult());
+                .body(StringResultDTO.class);
+
+        return UNIQUE.equals(stringResultDTO.getData());
     }
 
     @Override
     public boolean isEmailUnique(String email) {
-        BooleanResultDTO booleanResultDTO = usersRestClient
+        StringResultDTO booleanResultDTO = usersRestClient
                 .get()
                 .uri(usersRestApiConfig.getBaseUrl() + "/by-email?pattern={email}", email)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(BooleanResultDTO.class);
-        return UNIQUE.equals(booleanResultDTO.getResult());
+                .body(StringResultDTO.class);
+        return UNIQUE.equals(booleanResultDTO.getData());
     }
 
     @Override
@@ -109,5 +110,15 @@ public class UserEntityServiceImpl implements UserEntityService {
                 .body(updateUserDTO)
                 .retrieve()
                 .body(UserDTO.class);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        usersRestClient
+                .delete()
+                .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .body(StringResultDTO.class);
     }
 }

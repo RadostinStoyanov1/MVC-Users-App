@@ -16,5 +16,6 @@ public interface UserEntityService {
     public UserDTO getUserById(Long id);
     public void addUser(AddUserDTO addUserDTO);
     public void updateUser(UpdateUserDTO updateUserDTO);
+    public void deleteUser(Long id);
 
 }

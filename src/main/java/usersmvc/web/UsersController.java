@@ -71,7 +71,7 @@ public class UsersController {
 
         userEntityService.addUser(addUserDTO);
 
-        return "redirect:/";
+        return "redirect:/users/all";
 
     }
 
@@ -98,6 +98,13 @@ public class UsersController {
 
         userEntityService.updateUser(updateUserDTO);
 
-        return "redirect:/";
+        return "redirect:/users/all";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
+        userEntityService.deleteUser(id);
+
+        return "redirect:/users/all";
     }
 }
