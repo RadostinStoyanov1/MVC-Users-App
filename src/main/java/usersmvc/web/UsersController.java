@@ -2,16 +2,20 @@ package usersmvc.web;
 
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import usersmvc.model.dto.AddUserDTO;
 import usersmvc.model.dto.InputFormFieldDTO;
 import usersmvc.model.dto.UpdateUserDTO;
 import usersmvc.model.dto.UserDTO;
 import usersmvc.service.UserEntityService;
+import usersmvc.service.exception.UserDataNotValidated;
+import usersmvc.service.exception.UserNotFoundException;
 
 @Controller
 @RequestMapping("/users")
@@ -107,4 +111,23 @@ public class UsersController {
 
         return "redirect:/users/all";
     }
+
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UserNotFoundException.class)
+    public ModelAndView handleUserNotFound(UserNotFoundException unfe) {
+        ModelAndView modelAndView = new ModelAndView("user-not-found");
+        InputFormFieldDTO userIdField = new InputFormFieldDTO();
+        userIdField.setPattern(unfe.getMessage());
+        modelAndView.addObject("userId", userIdField);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserDataNotValidated.class)
+    public String handleUserNotValidated(UserDataNotValidated udnv) {
+
+        return "user-data-not-validated";
+    }
+
 }

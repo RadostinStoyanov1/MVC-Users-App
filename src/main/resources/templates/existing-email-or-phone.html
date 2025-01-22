@@ -13,11 +13,11 @@
 
 <body>
 
-<div th:replace="~{fragments/navbar::navbar(activeLink=${'login'})}"></div>
+<div th:replace="~{fragments/navbar}"></div>
 
 
 <div class="container-fluid">
-  <h5 class="text-center text-white mt-5">Oops! Object with requested id <span th:text="${objectid}"></span> was not found!</h5>
+  <h5 class="text-center text-white mt-5">Oops! User with entered email or phone already exists!</h5>
 </div>
 
 <div class="text-center text-white mt-5">We are sorry! Please navigate to <a th:href="@{/}">home page</a>...</div>
