@@ -1,6 +1,7 @@
 package usersmvc.model.dto;
 
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,9 @@ public class UpdateUserDTO {
     @Size(min = 2, max = 30)
     private String lastName;
 
+    @NotNull
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
     @Pattern(regexp = "[0-9]+")

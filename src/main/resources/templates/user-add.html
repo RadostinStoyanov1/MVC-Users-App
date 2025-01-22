@@ -31,7 +31,7 @@
                        th:field="*{firstName}"
                        th:errorclass="is-invalid"
                 />
-                <small th:errors="*{firstName}" class="invalid-feedback errors alert alert-danger" >User's name should not be empty</small>
+                <small th:errors="*{firstName}" class="invalid-feedback errors alert alert-danger" >First name should not be empty</small>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label for="lastName" class="text-white font-weight-bold">Last name</label>
@@ -40,7 +40,7 @@
                        th:field="*{lastName}"
                        th:errorclass="is-invalid"
                 />
-                <small th:errors="*{lastName}" class="invalid-feedback errors alert alert-danger" >User's name should not be empty</small>
+                <small th:errors="*{lastName}" class="invalid-feedback errors alert alert-danger" >Last name should not be empty</small>
             </div>
         </div>
 
@@ -70,7 +70,9 @@
             <label for="birthDate" class="text-white font-weight-bold">Birth date</label>
             <input id="birthDate" type="date" class="form-control"
                    th:field="*{birthDate}"
+                   th:errorclass="'is-invalid alert-danger'"
             />
+            <small th:errors="*{email}" class="invalid-feedback text-danger" >Date must be in the past</small>
         </div>
 
         <div class="d-flex justify-content-center mt-4">

@@ -1,9 +1,6 @@
 package usersmvc.model.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import usersmvc.validation.annotations.UniqueEmail;
 import usersmvc.validation.annotations.UniquePhone;
 
@@ -18,6 +15,8 @@ public class AddUserDTO {
     @Size(min = 2, max = 30)
     private String lastName;
 
+    @NotNull
+    @Past
     private LocalDate birthDate;
 
     @Pattern(regexp = "[0-9]+", message = "Phone number must contain 10 digits only")

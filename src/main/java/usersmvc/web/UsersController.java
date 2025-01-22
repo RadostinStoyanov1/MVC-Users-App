@@ -1,6 +1,7 @@
 package usersmvc.web;
 
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import usersmvc.model.dto.AddUserDTO;
 import usersmvc.model.dto.InputFormFieldDTO;
+import usersmvc.model.dto.UpdateUserDTO;
 import usersmvc.model.dto.UserDTO;
 import usersmvc.service.UserEntityService;
 
@@ -16,9 +18,11 @@ import usersmvc.service.UserEntityService;
 public class UsersController {
 
     private final UserEntityService userEntityService;
+    private final ModelMapper modelMapper;
 
-    public UsersController(UserEntityService userEntityService) {
+    public UsersController(UserEntityService userEntityService, ModelMapper modelMapper) {
         this.userEntityService = userEntityService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/all")
@@ -65,9 +69,35 @@ public class UsersController {
             return "redirect:/users/add";
         }
 
-        userEntityService.register(addUserDTO);
+        userEntityService.addUser(addUserDTO);
 
         return "redirect:/";
 
+    }
+
+    @GetMapping("/update/{id}")
+    public String updatingUser(@PathVariable Long id, Model model) {
+        UserDTO userDTO = userEntityService.getUserById(id);
+        UpdateUserDTO updatedUserDTO = modelMapper.map(userDTO, UpdateUserDTO.class);
+
+        if (!model.containsAttribute("updateUserDTO")) {
+            model.addAttribute("updateUserDTO", updatedUserDTO);
+        }
+
+        return "user-edit";
+    }
+
+    @PutMapping("/update/{id}")
+    public String updateUser(@Valid UpdateUserDTO updateUserDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("updateUserDTO", updateUserDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.updateUserDTO", bindingResult);
+
+            return "redirect:/users/update/{id}";
+        }
+
+        userEntityService.updateUser(updateUserDTO);
+
+        return "redirect:/";
     }
 }
