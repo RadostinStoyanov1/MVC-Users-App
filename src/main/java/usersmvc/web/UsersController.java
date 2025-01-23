@@ -14,7 +14,6 @@ import usersmvc.model.dto.InputFormFieldDTO;
 import usersmvc.model.dto.UpdateUserDTO;
 import usersmvc.model.dto.UserDTO;
 import usersmvc.service.UserEntityService;
-import usersmvc.service.exception.UserDataNotValidated;
 import usersmvc.service.exception.UserNotFoundException;
 
 @Controller
@@ -121,13 +120,6 @@ public class UsersController {
         modelAndView.addObject("userId", userIdField);
 
         return modelAndView;
-    }
-
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserDataNotValidated.class)
-    public String handleUserNotValidated(UserDataNotValidated udnv) {
-
-        return "user-data-not-validated";
     }
 
 }
