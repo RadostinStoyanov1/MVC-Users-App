@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+import usersmvc.repository.MasterUserEntityRepository;
 import usersmvc.repository.UserRoleRepository;
 
 import javax.sql.DataSource;
@@ -19,12 +20,12 @@ public class AppConfig {
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource,
-                                                       UserRoleRepository userRoleRepository,
+                                                       MasterUserEntityRepository masterUserEntityRepository,
                                                        ResourceLoader resourceLoader) {
         DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
 
-        if (userRoleRepository.count() == 0) {
+        if (masterUserEntityRepository.count() == 0 ) {
             ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
             populator.addScript(resourceLoader.getResource("classpath:data.sql"));
             initializer.setDatabasePopulator(populator);
