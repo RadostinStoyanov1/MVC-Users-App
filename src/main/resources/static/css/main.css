@@ -82,10 +82,6 @@ form.main-form {
      z-index: 1;
 }
 
-/*div.welcome p.h4 {
-     color: #d39e00;
-}*/
-
 .welcome:hover {
      box-shadow: 0 1px 5px black;
      backdrop-filter: blur(35px);

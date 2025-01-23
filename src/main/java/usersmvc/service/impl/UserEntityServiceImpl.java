@@ -12,6 +12,7 @@ import usersmvc.config.UsersRestApiConfig;
 import usersmvc.model.dto.*;
 import usersmvc.service.UserEntityService;
 import usersmvc.service.exception.ExistingEmailOrPhoneException;
+import usersmvc.service.exception.UserNotFoundException;
 
 import java.util.List;
 
@@ -91,6 +92,10 @@ public class UserEntityServiceImpl implements UserEntityService {
                 .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
+                .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(404)),
+                        (req, resp) -> {
+                            throw new UserNotFoundException("User with chosen id does not exist", id);
+                        })
                 .body(UserDTO.class);
     }
 
@@ -115,7 +120,6 @@ public class UserEntityServiceImpl implements UserEntityService {
                         (req, resp) -> {
                             throw new ExistingEmailOrPhoneException("User with entered email or phone already exists");
                         })
-
                 .body(UserDTO.class);
     }
 

@@ -117,7 +117,7 @@ public class UsersController {
     public ModelAndView handleUserNotFound(UserNotFoundException unfe) {
         ModelAndView modelAndView = new ModelAndView("user-not-found");
         InputFormFieldDTO userIdField = new InputFormFieldDTO();
-        userIdField.setPattern(unfe.getMessage());
+        userIdField.setPattern(String.valueOf(unfe.getId()));
         modelAndView.addObject("userId", userIdField);
 
         return modelAndView;
