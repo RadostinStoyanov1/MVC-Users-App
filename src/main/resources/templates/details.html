@@ -41,7 +41,7 @@
                       th:action="@{/users/{id}(id=${userDetails.getId()})}">
                     <button class="btn btn-danger" type="submit" th:text="'Delete User'"></button>
                 </form>
-                <!--<a th:if="${canDelete}" class="card-link" href="/">Delete</a>-->
+
                 <span class="col-auto ml-auto"> Update user details:</span>
                 <form class="d-inline-block"
                       th:method="GET"
