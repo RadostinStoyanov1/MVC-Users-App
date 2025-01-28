@@ -31,8 +31,10 @@ public class UsersController {
     @GetMapping("/all")
     public String getAllUsers(Model model) {
         model.addAttribute("allUsers", userEntityService.getAllUsersSummary());
-        InputFormFieldDTO inputFormFieldDTO = new InputFormFieldDTO();
-        model.addAttribute("searchPattern", inputFormFieldDTO.setPattern(""));
+        InputFormFieldDTO inputFormFieldDTO = new InputFormFieldDTO.Builder()
+                .pattern("")
+                .build();
+        model.addAttribute("searchPattern", inputFormFieldDTO);
         return "users";
     }
 
@@ -115,8 +117,9 @@ public class UsersController {
     @ExceptionHandler(UserNotFoundException.class)
     public ModelAndView handleUserNotFound(UserNotFoundException unfe) {
         ModelAndView modelAndView = new ModelAndView("user-not-found");
-        InputFormFieldDTO userIdField = new InputFormFieldDTO();
-        userIdField.setPattern(String.valueOf(unfe.getId()));
+        InputFormFieldDTO userIdField = new InputFormFieldDTO.Builder()
+                .pattern(String.valueOf(unfe.getId()))
+                .build();
         modelAndView.addObject("userId", userIdField);
 
         return modelAndView;

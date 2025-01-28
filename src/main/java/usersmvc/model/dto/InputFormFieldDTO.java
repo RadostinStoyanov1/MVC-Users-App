@@ -1,14 +1,26 @@
 package usersmvc.model.dto;
 
 public class InputFormFieldDTO {
-    private String pattern;
+    private final String pattern;
 
     public String getPattern() {
         return pattern;
     }
 
-    public InputFormFieldDTO setPattern(String pattern) {
-        this.pattern = pattern;
-        return this;
+    InputFormFieldDTO(Builder builder) {
+        this.pattern = builder.pattern;
+    }
+
+    public static class Builder {
+        private String pattern;
+
+        public Builder pattern(String pattern) {
+            this.pattern = pattern;
+            return this;
+        }
+
+        public InputFormFieldDTO build() {
+            return new InputFormFieldDTO(this);
+        }
     }
 }
