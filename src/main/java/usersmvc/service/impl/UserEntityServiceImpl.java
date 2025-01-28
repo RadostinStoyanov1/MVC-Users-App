@@ -18,7 +18,6 @@ import java.util.List;
 
 @Service
 public class UserEntityServiceImpl implements UserEntityService {
-    private static final String UNIQUE = "UNIQUE";
 
     private final RestClient usersRestClient;
     private final UsersRestApiConfig usersRestApiConfig;
@@ -33,25 +32,25 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     @Override
     public boolean isPhoneNumberUnique(String phone) {
-        StringResultDTO stringResultDTO = usersRestClient
+        BooleanResultDTO booleanResultDTO = usersRestClient
                 .get()
                 .uri(usersRestApiConfig.getBaseUrl() + "/by-phone?pattern={phone}", phone)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(StringResultDTO.class);
+                .body(BooleanResultDTO.class);
 
-        return UNIQUE.equals(stringResultDTO.getData());
+        return booleanResultDTO.getData();
     }
 
     @Override
     public boolean isEmailUnique(String email) {
-        StringResultDTO booleanResultDTO = usersRestClient
+        BooleanResultDTO booleanResultDTO = usersRestClient
                 .get()
                 .uri(usersRestApiConfig.getBaseUrl() + "/by-email?pattern={email}", email)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(StringResultDTO.class);
-        return UNIQUE.equals(booleanResultDTO.getData());
+                .body(BooleanResultDTO.class);
+        return booleanResultDTO.getData();
     }
 
     @Override
@@ -130,6 +129,6 @@ public class UserEntityServiceImpl implements UserEntityService {
                 .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .body(StringResultDTO.class);
+                .body(BooleanResultDTO.class);
     }
 }
