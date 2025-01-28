@@ -115,7 +115,7 @@ public class UserEntityServiceImpl implements UserEntityService {
                 .uri(usersRestApiConfig.getBaseUrl())
                 .body(updateUserDTO)
                 .retrieve()
-                .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(405)),
+                .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(409)),
                         (req, resp) -> {
                             throw new ExistingEmailOrPhoneException("User with entered email or phone already exists");
                         })
