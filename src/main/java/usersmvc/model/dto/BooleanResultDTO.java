@@ -7,8 +7,4 @@ public class BooleanResultDTO {
         return data;
     }
 
-    public BooleanResultDTO setData(boolean data) {
-        this.data = data;
-        return this;
-    }
 }
