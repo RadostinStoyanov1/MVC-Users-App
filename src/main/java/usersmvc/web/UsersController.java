@@ -14,6 +14,7 @@ import usersmvc.model.dto.InputFormFieldDTO;
 import usersmvc.model.dto.UpdateUserDTO;
 import usersmvc.model.dto.UserDTO;
 import usersmvc.service.UserEntityService;
+import usersmvc.service.exception.ExistingEmailOrPhoneException;
 import usersmvc.service.exception.UserNotFoundException;
 
 @Controller
@@ -121,6 +122,16 @@ public class UsersController {
                 .pattern(String.valueOf(unfe.getId()))
                 .build();
         modelAndView.addObject("userId", userIdField);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(code = HttpStatus.CONFLICT)
+    @ExceptionHandler(ExistingEmailOrPhoneException.class)
+    public ModelAndView handleExistingEmailOrPhone(ExistingEmailOrPhoneException ex) {
+        ModelAndView modelAndView = new ModelAndView("existing-email-or-phone");
+
+        modelAndView.addObject("message", ex.getMessage());
 
         return modelAndView;
     }
