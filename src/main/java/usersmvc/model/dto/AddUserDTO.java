@@ -46,4 +46,28 @@ public class AddUserDTO {
         return email;
     }
 
+    public AddUserDTO setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public AddUserDTO setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public AddUserDTO setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+
+    public AddUserDTO setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public AddUserDTO setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 }

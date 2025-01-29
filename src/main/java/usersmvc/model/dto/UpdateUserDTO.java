@@ -54,4 +54,33 @@ public class UpdateUserDTO {
         return email;
     }
 
+    public UpdateUserDTO setUuid(UUID uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    public UpdateUserDTO setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public UpdateUserDTO setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public UpdateUserDTO setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+
+    public UpdateUserDTO setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public UpdateUserDTO setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 }

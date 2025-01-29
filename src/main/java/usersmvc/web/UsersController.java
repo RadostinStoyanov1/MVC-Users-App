@@ -17,6 +17,8 @@ import usersmvc.service.UserEntityService;
 import usersmvc.service.exception.ExistingEmailOrPhoneException;
 import usersmvc.service.exception.UserNotFoundException;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/users")
 public class UsersController {
@@ -32,9 +34,9 @@ public class UsersController {
     @GetMapping("/all")
     public String getAllUsers(Model model) {
         model.addAttribute("allUsers", userEntityService.getAllUsersSummary());
-        InputFormFieldDTO inputFormFieldDTO = new InputFormFieldDTO.Builder()
-                .pattern("")
-                .build();
+        InputFormFieldDTO inputFormFieldDTO = new InputFormFieldDTO();
+        inputFormFieldDTO.setPattern("");
+
         model.addAttribute("searchPattern", inputFormFieldDTO);
         return "users";
     }
@@ -48,8 +50,8 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public String userDetails(@PathVariable Long id, Model model) {
-        UserDTO userDTO = userEntityService.getUserById(id);
+    public String userDetails(@PathVariable String id, Model model) {
+        UserDTO userDTO = userEntityService.getUserByUuid(UUID.fromString(id));
         model.addAttribute("userDetails", userDTO);
 
         return "details";
@@ -82,8 +84,8 @@ public class UsersController {
     }
 
     @GetMapping("/update/{id}")
-    public String updatingUser(@PathVariable Long id, Model model) {
-        UserDTO userDTO = userEntityService.getUserById(id);
+    public String updatingUser(@PathVariable UUID id, Model model) {
+        UserDTO userDTO = userEntityService.getUserByUuid(id);
         UpdateUserDTO updatedUserDTO = modelMapper.map(userDTO, UpdateUserDTO.class);
 
         if (!model.containsAttribute("updateUserDTO")) {
@@ -95,6 +97,7 @@ public class UsersController {
 
     @PutMapping("/update/{id}")
     public String updateUser(@Valid UpdateUserDTO updateUserDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("updateUserDTO", updateUserDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.updateUserDTO", bindingResult);
@@ -108,8 +111,8 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
-        userEntityService.deleteUser(id);
+    public String deleteUser(@PathVariable("id") String id) {
+        userEntityService.deleteUser(UUID.fromString(id));
 
         return "redirect:/users/all";
     }
@@ -118,10 +121,8 @@ public class UsersController {
     @ExceptionHandler(UserNotFoundException.class)
     public ModelAndView handleUserNotFound(UserNotFoundException unfe) {
         ModelAndView modelAndView = new ModelAndView("user-not-found");
-        InputFormFieldDTO userIdField = new InputFormFieldDTO.Builder()
-                .pattern(String.valueOf(unfe.getId()))
-                .build();
-        modelAndView.addObject("userId", userIdField);
+
+        modelAndView.addObject("message", unfe.getMessage());
 
         return modelAndView;
     }

@@ -38,14 +38,14 @@
             <div class="card-body">
                 <form class="d-inline-block"
                       th:method="DELETE"
-                      th:action="@{/users/{id}(id=${userDetails.getId()})}">
+                      th:action="@{/users/{id}(id=${userDetails.getUuid()})}">
                     <button class="btn btn-danger" type="submit" th:text="'Delete User'"></button>
                 </form>
 
                 <span class="col-auto ml-auto"> Update user details:</span>
                 <form class="d-inline-block"
                       th:method="GET"
-                      th:action="@{/users/update/{id}(id=${userDetails.getId()})}">
+                      th:action="@{/users/update/{id}(id=${userDetails.getUuid()})}">
                     <button class="btn btn-warning" type="submit" th:text="'Update user'"></button>
                 </form>
             </div>

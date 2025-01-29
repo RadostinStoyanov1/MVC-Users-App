@@ -53,7 +53,7 @@
                     </li>
                 </ul>
                 <div class="card-body">
-                    <a class="card-link" th:href="@{/users/{id}(id=${user.id})}">Details</a>
+                    <a class="card-link" th:href="@{/users/{id}(id=${user.getUuid()})}">Details</a>
                 </div>
             </div>
         </div>
