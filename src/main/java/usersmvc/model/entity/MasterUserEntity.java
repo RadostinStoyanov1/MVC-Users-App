@@ -1,8 +1,13 @@
 package usersmvc.model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
+import java.util.UUID;
+
+import static org.hibernate.type.SqlTypes.VARCHAR;
 
 @Entity
 @Table(name = "master_users")
@@ -10,6 +15,9 @@ public class MasterUserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @UuidGenerator
+    @JdbcTypeCode(VARCHAR)
+    private UUID uuid;
     @Column(nullable = false, unique = true)
     private String username;
     @Column(name = "first_name", nullable = false)
@@ -34,6 +42,15 @@ public class MasterUserEntity {
 
     public MasterUserEntity setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public MasterUserEntity setUuid(UUID uuid) {
+        this.uuid = uuid;
         return this;
     }
 
