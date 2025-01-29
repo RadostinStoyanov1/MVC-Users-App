@@ -119,6 +119,10 @@ public class UserEntityServiceImpl implements UserEntityService {
                         (req, resp) -> {
                             throw new ExistingEmailOrPhoneException("User with entered email or phone already exists");
                         })
+                .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(404)),
+                        (req, resp) -> {
+                            throw new UserNotFoundException("User with chosen id does not exist", updateUserDTO.getId());
+                        })
                 .body(UserDTO.class);
     }
 
@@ -129,6 +133,10 @@ public class UserEntityServiceImpl implements UserEntityService {
                 .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
+                .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(404)),
+                        (req, resp) -> {
+                            throw new UserNotFoundException("User with chosen id does not exist", id);
+                        })
                 .body(BooleanResultDTO.class);
     }
 }
