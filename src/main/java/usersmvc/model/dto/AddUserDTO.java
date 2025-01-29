@@ -2,8 +2,6 @@ package usersmvc.model.dto;
 
 import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import usersmvc.validation.annotations.UniqueEmail;
-import usersmvc.validation.annotations.UniquePhone;
 
 import java.time.LocalDate;
 
@@ -23,11 +21,9 @@ public class AddUserDTO {
 
     @Pattern(regexp = "[0-9]+", message = "Phone number must contain 10 digits only")
     @Size(min = 10, max = 10)
-    @UniquePhone
     private String phoneNumber;
 
-    @Email(regexp = ".*@.*")
-    @UniqueEmail
+    @Email
     private String email;
 
     public String getFirstName() {

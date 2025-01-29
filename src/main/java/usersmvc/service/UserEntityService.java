@@ -8,8 +8,7 @@ import usersmvc.model.dto.UserSummaryDTO;
 import java.util.List;
 
 public interface UserEntityService {
-    public boolean isPhoneNumberUnique(String username);
-    public boolean isEmailUnique(String email);
+
     public List<UserSummaryDTO> getAllUsersSummary();
     public List<UserSummaryDTO> getAllSearchedUsersSummary(String pattern);
     public List<UserDTO> getAllUsersAsUserDTO(String pattern);

@@ -52,7 +52,7 @@
                        th:field="*{phoneNumber}"
                        th:errorclass="'is-invalid alert-danger'"
                 />
-                <small th:errors="*{phoneNumber}" class="invalid-feedback text-danger" >Phone number is already occupied</small>
+                <small th:errors="*{phoneNumber}" class="invalid-feedback text-danger" >Phone number should consist of 10 digits exactly</small>
             </div>
 
             <div class="form-group col-md-6 mb-3">
@@ -62,7 +62,7 @@
                        th:field="*{email}"
                        th:errorclass="'is-invalid alert-danger'"
                 />
-                <small th:errors="*{email}" class="invalid-feedback text-danger" >Email is already occupied</small>
+                <small th:errors="*{email}" class="invalid-feedback text-danger" >Entered email is not valid</small>
             </div>
         </div>
 

@@ -31,29 +31,6 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     @Override
-    public boolean isPhoneNumberUnique(String phone) {
-        BooleanResultDTO booleanResultDTO = usersRestClient
-                .get()
-                .uri(usersRestApiConfig.getBaseUrl() + "/by-phone?pattern={phone}", phone)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(BooleanResultDTO.class);
-
-        return booleanResultDTO.getData();
-    }
-
-    @Override
-    public boolean isEmailUnique(String email) {
-        BooleanResultDTO booleanResultDTO = usersRestClient
-                .get()
-                .uri(usersRestApiConfig.getBaseUrl() + "/by-email?pattern={email}", email)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .body(BooleanResultDTO.class);
-        return booleanResultDTO.getData();
-    }
-
-    @Override
     public List<UserSummaryDTO> getAllUsersSummary() {
         LOGGER.info("Getting all users...");
         String emptyPattern = "";
