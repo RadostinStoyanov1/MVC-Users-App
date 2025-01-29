@@ -15,6 +15,7 @@ import usersmvc.service.exception.ExistingEmailOrPhoneException;
 import usersmvc.service.exception.UserNotFoundException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserEntityServiceImpl implements UserEntityService {
@@ -37,7 +38,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 
         return getAllUsersAsUserDTO(emptyPattern)
                 .stream()
-                .map(userDTO -> modelMapper.map(userDTO, UserSummaryDTO.class))
+                .map(this::mapUserDTOToUserSummaryDTO)
                 .toList();
     }
 
@@ -47,7 +48,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 
         return getAllUsersAsUserDTO(pattern)
                 .stream()
-                .map(userDTO -> modelMapper.map(userDTO, UserSummaryDTO.class))
+                .map(userDTO -> mapUserDTOToUserSummaryDTO(userDTO))
                 .toList();
     }
 
@@ -62,15 +63,16 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     @Override
-    public UserDTO getUserById(Long id) {
+    public UserDTO getUserByUuid(UUID id) {
+
         return usersRestClient
                 .get()
-                .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id)
+                .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id.toString())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(404)),
                         (req, resp) -> {
-                            throw new UserNotFoundException("User with chosen id does not exist", id);
+                            throw new UserNotFoundException("User with chosen id does not exist");
                         })
                 .body(UserDTO.class);
     }
@@ -102,22 +104,31 @@ public class UserEntityServiceImpl implements UserEntityService {
                         })
                 .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(404)),
                         (req, resp) -> {
-                            throw new UserNotFoundException("User with chosen id does not exist", updateUserDTO.getId());
+                            throw new UserNotFoundException("User with chosen id does not exist");
                         })
                 .body(UserDTO.class);
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         usersRestClient
                 .delete()
-                .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id)
+                .uri(usersRestApiConfig.getBaseUrl() + "/{id}", id.toString())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .onStatus(s -> s.isSameCodeAs(HttpStatusCode.valueOf(404)),
                         (req, resp) -> {
-                            throw new UserNotFoundException("User with chosen id does not exist", id);
+                            throw new UserNotFoundException("User with chosen id does not exist");
                         })
                 .body(BooleanResultDTO.class);
+    }
+
+    private UserSummaryDTO mapUserDTOToUserSummaryDTO(UserDTO userDTO) {
+        return new UserSummaryDTO.Builder()
+                .uuid(userDTO.getUuid())
+                .firstName(userDTO.getFirstName())
+                .lastName(userDTO.getLastName())
+                .birthDate(userDTO.getBirthDate())
+                .build();
     }
 }

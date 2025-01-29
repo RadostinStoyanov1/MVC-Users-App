@@ -1,17 +1,18 @@
 package usersmvc.model.dto;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class UserDTO {
-    private Long id;
+    private UUID uuid;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
     private String phoneNumber;
     private String email;
 
-    public Long getId() {
-        return id;
+    public UUID getUuid() {
+        return uuid;
     }
 
     public String getFirstName() {

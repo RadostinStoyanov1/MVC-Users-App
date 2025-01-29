@@ -4,10 +4,11 @@ import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class UpdateUserDTO {
     @NotNull
-    private Long id;
+    private UUID uuid;
 
     @NotEmpty
     @Size(min = 2, max = 30)
@@ -26,11 +27,11 @@ public class UpdateUserDTO {
     @Size(min = 10, max = 10)
     private String phoneNumber;
 
-    @Email(regexp = ".*@.*")
+    @Email
     private String email;
 
-    public Long getId() {
-        return id;
+    public UUID getUuid() {
+        return uuid;
     }
 
     public String getFirstName() {
