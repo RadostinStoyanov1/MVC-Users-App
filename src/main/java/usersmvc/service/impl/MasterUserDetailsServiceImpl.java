@@ -30,7 +30,9 @@ public class MasterUserDetailsServiceImpl implements UserDetailsService {
     }
 
     private static UserDetails map(MasterUserEntity masterUserEntity) {
-        return new AppMasterUserDetails(masterUserEntity.getEmail(),
+        return new AppMasterUserDetails(
+                masterUserEntity.getUuid(),
+                masterUserEntity.getEmail(),
                 masterUserEntity.getPassword(),
                 masterUserEntity.getRoles().stream().map(UserRoleEntity::getRole).map(MasterUserDetailsServiceImpl::map).toList(),
                 masterUserEntity.getFirstName(),
