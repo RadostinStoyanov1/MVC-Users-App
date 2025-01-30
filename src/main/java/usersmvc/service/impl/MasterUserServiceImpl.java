@@ -13,9 +13,8 @@ public class MasterUserServiceImpl implements MasterUserService {
     @Override
     public Optional<AppMasterUserDetails> getCurrentMasterUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null &&
-                authentication.getPrincipal() instanceof AppMasterUserDetails masterUserDetails) {
-            return Optional.of(masterUserDetails);
+        if (authentication != null && authentication.getPrincipal() instanceof AppMasterUserDetails appMasterUserDetails) {
+            return Optional.of(appMasterUserDetails);
         }
         return Optional.empty();
     }

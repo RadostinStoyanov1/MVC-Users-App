@@ -6,8 +6,6 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import usersmvc.service.JwtService;
-
-import javax.xml.crypto.Data;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
@@ -30,11 +28,11 @@ public class JwtServiceImpl implements JwtService {
 
         return Jwts
                 .builder()
-                .setSubject(userId)
                 .setClaims(claims)
+                .setSubject(userId)
                 .setIssuedAt(now)
                 .setNotBefore(now)
-                .setExpiration(new Date(now.getTime() + expiration))
+                .setExpiration(new Date(now.getTime() + this.getExpiration()))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -42,5 +40,9 @@ public class JwtServiceImpl implements JwtService {
     private Key getSigningKey() {
         byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public long getExpiration() {
+        return expiration;
     }
 }
