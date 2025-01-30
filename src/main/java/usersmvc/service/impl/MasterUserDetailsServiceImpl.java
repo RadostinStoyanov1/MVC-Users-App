@@ -8,14 +8,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import usersmvc.model.entity.MasterUserEntity;
 import usersmvc.model.entity.UserRoleEntity;
 import usersmvc.model.entity.UserRoleEnum;
-import usersmvc.model.user.AppUserDetails;
+import usersmvc.model.user.AppMasterUserDetails;
 import usersmvc.repository.MasterUserEntityRepository;
 
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class MasterUserDetailsServiceImpl implements UserDetailsService {
 
     private final MasterUserEntityRepository masterUserEntityRepository;
 
-    public UserDetailsServiceImpl(MasterUserEntityRepository masterUserEntityRepository) {
+    public MasterUserDetailsServiceImpl(MasterUserEntityRepository masterUserEntityRepository) {
         this.masterUserEntityRepository = masterUserEntityRepository;
     }
 
@@ -23,16 +23,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return masterUserEntityRepository
                 .findByEmail(email)
-                .map(UserDetailsServiceImpl::map)
+                .map(MasterUserDetailsServiceImpl::map)
                 .orElseThrow(
                         () -> new UsernameNotFoundException("User with email " + email + " not found!"));
 
     }
 
     private static UserDetails map(MasterUserEntity masterUserEntity) {
-        return new AppUserDetails(masterUserEntity.getEmail(),
+        return new AppMasterUserDetails(masterUserEntity.getEmail(),
                 masterUserEntity.getPassword(),
-                masterUserEntity.getRoles().stream().map(UserRoleEntity::getRole).map(UserDetailsServiceImpl::map).toList(),
+                masterUserEntity.getRoles().stream().map(UserRoleEntity::getRole).map(MasterUserDetailsServiceImpl::map).toList(),
                 masterUserEntity.getFirstName(),
                 masterUserEntity.getLastName());
     }

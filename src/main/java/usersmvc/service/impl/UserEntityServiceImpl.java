@@ -124,6 +124,7 @@ public class UserEntityServiceImpl implements UserEntityService {
     }
 
     private UserSummaryDTO mapUserDTOToUserSummaryDTO(UserDTO userDTO) {
+
         return new UserSummaryDTO.Builder()
                 .uuid(userDTO.getUuid())
                 .firstName(userDTO.getFirstName())

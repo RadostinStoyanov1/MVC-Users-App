@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import usersmvc.repository.MasterUserEntityRepository;
-import usersmvc.service.impl.UserDetailsServiceImpl;
+import usersmvc.service.impl.MasterUserDetailsServiceImpl;
 
 @Configuration
 public class SecurityConfig {
@@ -42,8 +42,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsServiceImpl userDetailsService(MasterUserEntityRepository masterUserEntityRepository) {
-        return new UserDetailsServiceImpl(masterUserEntityRepository);
+    public MasterUserDetailsServiceImpl userDetailsService(MasterUserEntityRepository masterUserEntityRepository) {
+        return new MasterUserDetailsServiceImpl(masterUserEntityRepository);
     }
 
     @Bean
